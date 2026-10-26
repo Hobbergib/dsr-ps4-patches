@@ -6,7 +6,7 @@
 | Depth of Field Off | Removes depth of field blur |
 | Player Lantern Off | Removes the light around the player |
 
-Tested on CUSA08495 (US), version 01.03.
+Tested on CUSA08495, version 01.03.
 
 ## Install
 
