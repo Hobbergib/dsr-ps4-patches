@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <TitleID>
+        <ID>CUSA08495</ID>
+    </TitleID>
+    <Metadata Title="Dark Souls Remastered"
+              Name="Motion Blur Off"
+              Note="Turns off the camera motion blur. Sets the renderer's camera blur switch to off and its blur strength to 0, so it also works with PS4 Pro checkerboard rendering."
+              Author="Hobbergib"
+              PatchVer="1.0"
+              AppVer="01.03"
+              AppElf="eboot.bin">
+        <PatchList>
+            <!-- camera blur enable flag default: 1 -> 0 -->
+            <Line Type="bytes" Address="0x00622019" Value="00"/>
+            <!-- camera blur X scale default: 0.83 -> 0.0 -->
+            <Line Type="bytes" Address="0x00622021" Value="00000000"/>
+            <!-- camera blur Y scale default: 0.83 -> 0.0 -->
+            <Line Type="bytes" Address="0x0062202c" Value="00000000"/>
+        </PatchList>
+    </Metadata>
+    <Metadata Title="Dark Souls Remastered"
+              Name="Depth of Field Off"
+              Note="Removes the distance/near depth of field blur. Forces the far and near DoF strength from the area lighting params to 0, the same as areas that have no DoF."
+              Author="Hobbergib"
+              PatchVer="1.0"
+              AppVer="01.03"
+              AppElf="eboot.bin">
+        <PatchList>
+            <!-- far DoF strength: vmulss xmm2, xmm5, [rbp-0x48] -> vxorps xmm2, xmm2, xmm2 ; nop -->
+            <Line Type="bytes" Address="0x0062e03c" Value="c5e857d290"/>
+            <!-- near DoF strength: vmulss xmm3, xmm5, [rbp-0x3c] -> vxorps xmm3, xmm3, xmm3 ; nop -->
+            <Line Type="bytes" Address="0x0062e047" Value="c5e057db90"/>
+        </PatchList>
+    </Metadata>
+    <Metadata Title="Dark Souls Remastered"
+              Name="Player Lantern Off"
+              Note="Removes the light the remaster adds around the player, for darker original-style lighting. Sets the LocalPlayerLantern point light intensity multiplier from 1.6 to 0."
+              Author="Hobbergib"
+              PatchVer="1.0"
+              AppVer="01.03"
+              AppElf="eboot.bin">
+        <PatchList>
+            <!-- POINT_LIGHT_CATEGORY_LocalPlayerLantern intensity: 1.6 -> 0.0 -->
+            <Line Type="bytes" Address="0x01d3df80" Value="00000000"/>
+        </PatchList>
+    </Metadata>
+</Patch>
